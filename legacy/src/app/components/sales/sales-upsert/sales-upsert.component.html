@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+  <div class="col-md-6"> 
+    <div class="card-body">
+      <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Client</label> 
+          <select class="form-control" formControlName="clientId">
+            <option *ngFor="let option of clientsOptions" [value]="option._id">{{ option.name }}</option>
+          </select>
+        </div> 
+
+        <hr/>
+        
+        <div class="form-group">
+          <label>Add Product</label> 
+          <select class="form-control" #addProductSelector (change)="addProduct($event.target.value)">
+            <option></option>
+            <option *ngFor="let option of productsOptions" [value]="option._id">{{ option.name }}</option>
+          </select>
+        </div> 
+
+        <table class="table table-bordered mt-2">
+          <thead class="table-success">
+            <tr>
+              <th scope="col">Product ID</th>
+              <th scope="col">Product Name</th> 
+              <th scope="col">Product Price</th> 
+              <th scope="col center">Actions</th>
+            </tr>
+          </thead>
+      
+          <tbody>
+            <ng-container formArrayName="products">
+              <ng-container *ngFor="let productForm of products.controls; let i = index"> 
+                <tr [formGroup]="productForm">
+                  <td scope="row">{{ productForm.controls['_id'].value }}</td> 
+                  <td>{{ productForm.controls['name'].value }}</td>
+                  <td>
+                    <input class="form-control" type="number" formControlName="price"/>
+                  </td>  
+                  <td class="text-center edit-block"> 
+                    <span class="delete" (click)="removeProduct(i)">
+                      <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                    </span>
+                  </td>
+                </tr>                
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+
+        <div class="form-group mt-2">
+          <button [disabled]="formGroup.invalid" class="btn btn-success btn-lg btn-block" type="submit">
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+  </div> 
+</div>
