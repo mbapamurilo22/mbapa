@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  mba-integrator
+  controller
 
-  Mba-integrator
+  controller
   
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -11,31 +11,31 @@ Globals:
     Timeout: 3
 
 Resources:
-  MBAIntegratorFunction:
+  Controller:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: mba-integrator/
+      CodeUri: controller/
       Handler: app.lambdaHandler
       Runtime: nodejs16.x
       Architectures:
         - x86_64
       Events:
-        MBAIntegrator:
+        Controller:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /integrator
+            Path: /controller
             Method: post
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  MBAIntegratorApi:
-    Description: "API Gateway endpoint URL for Prod stage for MBA Integrator function"
+  ControllerApi:
+    Description: "API Gateway endpoint URL for Prod stage for Controller function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/integrator/"
-  MBAIntegratorFunction:
-    Description: "MBA Integrator Lambda Function ARN"
-    Value: !GetAtt MBAIntegratorFunction.Arn
-  MBAIntegratorFunctionIamRole:
-    Description: "Implicit IAM Role created for MBA Integrator function"
-    Value: !GetAtt MBAIntegratorFunctionRole.Arn
+  Controller:
+    Description: "Controller Lambda Function ARN"
+    Value: !GetAtt Controller.Arn
+  ControllerIamRole:
+    Description: "Implicit IAM Role created for Controller function"
+    Value: !GetAtt ControllerRole.Arn
