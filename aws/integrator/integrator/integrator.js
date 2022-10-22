@@ -3,7 +3,9 @@ const requester = require('./requester.js');
 const confirmer = require('./confirmer.js');
 
 async function integrate(docClient, transaction) {
-    const credentials = await credentialsService.getCredentials(docClient)[0].omie_credentials;
+    const credential$ = await credentialsService.getCredentials(docClient);
+    console.log(credential$);
+    const credentials = credential$[0].omie_credentials;
      
     const data = await getData(docClient, transaction);   
 
