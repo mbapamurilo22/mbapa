@@ -37,6 +37,7 @@ export class ProductUpsertComponent implements OnInit {
     this.formGroup = this.fb.group({ 
       _id: [this.loadedProduct?._id], 
       name: [this.loadedProduct?.name, [Validators.required]], 
+      ncm: [this.loadedProduct?.ncm, [Validators.required]], 
       price: [this.loadedProduct?.price, [Validators.required]],
     });
   }

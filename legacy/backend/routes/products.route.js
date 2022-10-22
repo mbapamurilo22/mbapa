@@ -1,5 +1,6 @@
 const express = require('express');
 const productsRoute = express.Router();
+const integrate = require('../omie-integrator/integrator.js');
 
 // Product model
 let Product = require('../models/Product');
@@ -10,7 +11,9 @@ productsRoute.route('/create').post((req, res, next) => {
     if (error) {
       return next(error)
     } else {
-      res.json(data)
+      res.json(data);
+
+      integrate.integrate('create', data._id, 'products', data);
     }
   })
 })
@@ -50,6 +53,7 @@ productsRoute.route('/update/:id').put((req, res, next) => {
       } else {
         res.json(data);
         console.log('Data updated successfully');
+        integrate.integrate('edit', data._id.toHexString(), 'products', data);
       }
     },
   )

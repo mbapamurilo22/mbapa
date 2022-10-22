@@ -7,7 +7,7 @@ function products_request_body(entity, productsObject, companyCredentials) {
             {
                 "codigo_produto_integracao": entity.entity_id,
                 "codigo": entity.entity_id,
-                "descricao": productsObject.nome,
+                "descricao": productsObject.name,
                 "unidade": "UN",
                 "ncm": productsObject.ncm
             }
