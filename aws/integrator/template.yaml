@@ -19,6 +19,11 @@ Resources:
       Runtime: nodejs16.x
       Architectures:
         - x86_64 
+      Events:
+        SNSEvent:
+          Type: SNS
+          Properties:
+            Topic: arn:aws:sns:us-west-2:566321601732:controller-notification
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

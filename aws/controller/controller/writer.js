@@ -28,7 +28,7 @@ function writer (event, dynamoClient) {
                 resolve(false);
             } else {
                 console.log("Item added succesfully!");
-                resolve(parsedBody?.transaction_id);
+                resolve(parsedBody);
             }
         });
     });    
