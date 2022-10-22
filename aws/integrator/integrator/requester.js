@@ -82,11 +82,13 @@ async function requester(entity, credentials, dynamoClient) {
 function getOmieRegistryId(rawResponseBody, entity_type) {
     const response = JSON.parse(rawResponseBody);
     
+    console.log('Omie OK response:', response);
+    
     if (entity_type === 'sales') {
         return Number(response.numero_pedido);
     }
     
-    return 0;
+    return '-';
 }
 
 function getOmieUrl(entity_type) {
