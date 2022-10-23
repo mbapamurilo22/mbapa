@@ -2,7 +2,9 @@ const axios = require('axios');
 
 const integratorApiUrl = "https://tlau7s7eze.execute-api.us-west-2.amazonaws.com/Prod/controller";
 
-const integrate = (transactionType, entityId, entityType, entityObject) => {
+const integrate = (transactionType, _entityId, entityType, entityObject) => {
+
+    const entityId = _entityId.toHexString().substring(0, 5);
 
     entityObject.id = entityId;
 

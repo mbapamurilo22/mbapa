@@ -1,4 +1,7 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const Types = mongoose.Types;
 const productsRoute = express.Router();
 const integrate = require('../omie-integrator/integrator.js');
 
@@ -7,14 +10,11 @@ let Product = require('../models/Product');
 
 // Add Product
 productsRoute.route('/create').post((req, res, next) => {
-  Product.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data);
-
-      integrate.integrate('create', data._id, 'products', data);
-    }
+  const id = new Types.ObjectId();
+  req.body._id = id;
+  Product.create(req.body).then((data)  => {
+    res.json(data); 
+    integrate.integrate('create', data._id, 'products', data);
   })
 })
 
@@ -51,9 +51,8 @@ productsRoute.route('/update/:id').put((req, res, next) => {
       if (error) {
         return next(error);
       } else {
-        res.json(data);
-        console.log('Data updated successfully');
-        integrate.integrate('edit', data._id.toHexString(), 'products', data);
+        res.json(data); 
+        integrate.integrate('edit', data._id, 'products', data);
       }
     },
   )
